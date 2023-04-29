@@ -2,19 +2,22 @@ package app
 
 import (
 	"fmt"
+	"log"
+
+	"github.com/mstomar698/GoMall/app/database"
+	"github.com/mstomar698/GoMall/app/routes"
 
 	"github.com/gin-contrib/multitemplate"
 	"github.com/gin-gonic/gin"
 )
 
 func InitializeDB() error {
-	// database.ConnectDB()
-	// if database.DB == nil {
-	// 	log.Fatal("DB not connected ❌")
-	// } else {
-	// 	log.Println("DB connected 👍")
-	// }
-	fmt.Println("DB connected 👍")
+	database.ConnectDB()
+	if database.DB == nil {
+		log.Fatal("DB not connected ❌")
+	} else {
+		log.Println("DB connected 👍")
+	}
 	return nil
 }
 
@@ -42,12 +45,12 @@ func InitializeRouter() {
 	// router.StaticFile("/favicon.ico", "../web/static/img/favicon.ico")
 
 	router.HTMLRender = createMyRender()
-	
-	// routes.ScreenRoute(router)
-	// routes.AuthRoutes(router)
-	// routes.HomeRoute(router)
-	// routes.UserRoutes(router)
 
-	fmt.Println("Server running on port http://localhost:8080 👍")
+	routes.ScreenRoute(router)
+	routes.AuthRoutes(router)
+	routes.HomeRoute(router)
+	routes.UserRoutes(router)
+
+	fmt.Println("Server running line at http://localhost:8080 ENJOY!!😁")
 	router.Run(":8080")
 }

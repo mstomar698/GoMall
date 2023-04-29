@@ -62,5 +62,3 @@ backend
 
 > Work by [Mayank](http.//github.com/mstomar698)
 
-
-> go get github.com/dgrijalva/jwt-go github.com/gin-gonic/gin github.com/go-playground/validator/v10 github.com/joho/godotenv go.mongodb.org/mongo-driver golang.org/x/crypto
