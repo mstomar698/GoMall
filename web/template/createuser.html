@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create user page</title>
+    <link rel="stylesheet" href="/css/signup.css" />
+  </head>
+  <body class="create">
+    <h1>Directly Add user</h1>
+    <form id="create-user-form">
+      <label for="first_name">First Name:</label>
+      <input type="text" id="first_name" name="first_name" required />
+      <br />
+      <label for="last_name">Last Name:</label>
+      <input type="text" id="last_name" name="last_name" required />
+      <br />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+      <br />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required />
+      <br />
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" name="phone" required />
+      <br />
+      <label for="user_type">User Type:</label>
+      <select id="user_type" name="user_type" required>
+        <option value="ADMIN">Admin</option>
+        <option value="USER">User</option>
+      </select>
+      <br />
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" required />
+      <br />
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required />
+      <br />
+      <input type="submit" value="Create" />
+    </form>
+    <br />
+    <script>
+      const form = document.getElementById('create-user-form');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+        const json = JSON.stringify(Object.fromEntries(formData));
+        const response = await fetch('/user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: json,
+        });
+        const result = await response.text();
+        if (!result.includes('error')) {
+          setTimeout(() => {
+            window.location.href = '/home';
+          }, 1000);
+        } else {
+          console.error('Failed to create-user');
+          alert('Failed to create-user ❌ try again');
+        }
+      });
+    </script>
+  </body>
+</html>

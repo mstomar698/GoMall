@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <title>GoMall</title>
+    <link rel="stylesheet" href="/css/home.css" />
+  </head>
+  <body class="home">
+    <h1>Welcome to your Dashboard</h1>
+    <!-- Admin section -->
+    {{ if .admin }}
+    <div class="nav">
+      <h2>Admin {{.username}}</h2>
+      <button onclick="logOutFunction()" class="btn">LogOut</button>
+    </div>
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>User Type</th>
+        <th>Location</th>
+        <th>Title</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      {{range .users}}
+      <tr>
+        <td>{{.First_name}} {{.Last_name}}</td>
+        <td>{{.Email}}</td>
+        <td>{{.Phone}}</td>
+        <td>{{.User_type}}</td>
+        <td>{{.Location}}</td>
+        <td>{{.Title}}</td>
+        <td><a href="/edituser/{{.ID.Hex}}">⚙️</a></td>
+        <td><a href="/deleteuser/{{.ID.Hex}}">❌</a></td>
+      </tr>
+      {{end}}
+    </table>
+    <div class="adduser">
+      <h3>Add a new user</h3>
+      <button class="addbtn" value="addbtn">
+        <a href="/createuser">Add User ➕</a>
+      </button>
+    </div>
+    <!-- non-admin section -->
+    {{ else }}
+    <div class="nav">
+      <h2>User {{.username}}</h2>
+      <button onclick="logOutFunction()" class="btn">LogOut</button>
+    </div>
+    <h4>Your account details:</h4>
+    <p>Name: {{ .username }}</p>
+    <p>Email: {{ .email }}</p>
+    <h2>All users in organization:</h2>
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>User Type</th>
+        <th>Location</th>
+        <th>Title</th>
+      </tr>
+      {{range .users}}
+      <tr>
+        <td>{{.First_name}} {{.Last_name}}</td>
+        <td>{{.Email}}</td>
+        <td>{{.Phone}}</td>
+        <td>{{.User_type}}</td>
+        <td>{{.Location}}</td>
+        <td>{{.Title}}</td>
+      </tr>
+      {{end}}
+    </table>
+    <div class="edituser">
+      <h3>Edit your details</h3>
+      <button value="editbtn" class="editbtn">
+        <a href="/edituser/{{.user_id}}">Edit Profile</a>
+      </button>
+    </div>
+    {{ end }}
+    <script>
+      function logOutFunction() {
+        const confirmationButton = document.createElement('button');
+        confirmationButton.textContent = 'Yes';
+        const cancelButton = document.createElement('button');
+        cancelButton.textContent = 'No';
+        const confirmationMessage = document.createElement('div');
+        confirmationMessage.textContent = 'Leaving so soon? 😥';
+        confirmationMessage.appendChild(document.createElement('br'));
+        confirmationMessage.appendChild(confirmationButton);
+        confirmationMessage.appendChild(cancelButton);
+
+        const confirmationDialog = document.createElement('div');
+        confirmationDialog.classList.add('popup');
+        confirmationDialog.appendChild(confirmationMessage);
+
+        document.body.appendChild(confirmationDialog);
+
+        confirmationButton.addEventListener(
+          'click',
+          logoutredirectorFunction()
+        );
+
+        cancelButton.addEventListener('click', function () {
+          console.log('😊👍');
+          document.body.removeChild(confirmationDialog);
+        });
+        function logoutredirectorFunction() {
+          console.log('first');
+          document.body.removeChild(confirmationDialog);
+          // NOTE: this is a hacky way to do this, but it works for now
+          window.location.href = '/';
+          // fetch("/logout", {
+          //   method: "POST",
+          //   headers: { "Content-Type": "application/json" },
+          //   body: JSON.stringify({}),
+          // })
+          //   .then((response) => {
+          //     if (response.ok) {
+          //       console.log("user-logout");
+          //     } else {
+          //       throw new Error("Logout failed");
+          //     }
+          //   })
+          //   .catch((error) => {
+          //     console.error(error);
+          //   });
+        }
+      }
+    </script>
+  </body>
+</html>

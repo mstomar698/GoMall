@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>edit</title>
+    <link rel="stylesheet" href="/css/home.css" />
+  </head>
+  <body class="home">
+    <h1>Edit User</h1>
+    <h3>previous details of the user</h3>
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>User Type</th>
+        <th>Location</th>
+        <th>Title</th>
+      </tr>
+      <tr>
+        <td>{{.user_id}}</td>
+        <td>{{.user.First_name}} {{.user.Last_name}}</td>
+        <td>{{.user.Email}}</td>
+        <td>{{.user.Phone}}</td>
+        <td>{{.user.User_type}}</td>
+        <td>{{.user.Location}}</td>
+        <td>{{.user.Title}}</td>
+      </tr>
+    </table>
+    <div class="note">
+      <p>NOTE:</p>
+      <p>Due to privacy only first name and last name are editable</p>
+    </div>
+    <h3>New User Details</h3>
+    <form id="editForm">
+      <div>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="first_name" required />
+      </div>
+      <div>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="last_name" required />
+      </div>
+      <button type="button" id="editButton">Edit User</button>
+    </form>
+
+    <script>
+      const userId = '{{.user_id}}';
+      document
+        .getElementById('editButton')
+        .addEventListener('click', function () {
+          if (confirm('Are you sure you want to edit this user?')) {
+            console.log('editiing user...⚙️ for user id: ' + userId);
+            const form = document.getElementById('editForm');
+            const formData = new FormData(form);
+            const json = {};
+            formData.forEach(function (value, key) {
+              json[key] = value;
+            });
+            fetch(`/user/${userId}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(json),
+            }).then((response) => {
+              if (response.ok) {
+                setTimeout(() => {
+                  window.location.href = '/home';
+                }, 200);
+                console.log('User updated successfully!');
+              } else {
+                alert('Error editing user.');
+              }
+            });
+          }
+        });
+    </script>
+  </body>
+</html>

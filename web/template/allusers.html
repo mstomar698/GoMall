@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <title>Alluser</title>
+    <link rel="stylesheet" href="css/home.css" />
+  </head>
+  <body class="home">
+    <h1>All Users</h1>
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>User Type</th>
+        <th>Location</th>
+        <th>Title</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+      <p>{{.users}}</p>
+      {{range .users}}
+      <tr>
+        <td>{{.First_name}} {{.Last_name}}</td>
+        <td>{{.Email}}</td>
+        <td>{{.Phone}}</td>
+        <td>{{.User_type}}</td>
+        <td>{{.Location}}</td>
+        <td>{{.Title}}</td>
+        <td><a href="{{.ID.Hex}}">⚙️</a></td>
+        <td><a href="{{.ID.Hex}}">❌</a></td>
+      </tr>
+      {{end}}
+    </table>
+  </body>
+</html>

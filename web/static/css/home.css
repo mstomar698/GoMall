@@ -1,0 +1,100 @@
+.home {
+  color: #fff;
+  background: #000;
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.head {
+  font-size: 3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  margin-bottom: 1rem;
+}
+
+.table {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  border: red;
+  border-style: solid;
+  border-width: 4px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn {
+  margin-left: 64px;
+  border: green;
+  border-style: solid;
+  border-width: 4px;
+  padding: 2px;
+}
+.editbtn {
+  border: red;
+  border-style: solid;
+  border-width: 4px;
+  padding: 2px;
+}
+.addbtn {
+  border: blue;
+  border-style: solid;
+  border-width: 4px;
+  padding: 2px;
+}
+
+.edituser {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  margin-top: 4px;
+}
+
+a {
+  color: red;
+  text-align: center;
+  padding: 0.5px;
+  text-decoration: none;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: red;
+  z-index: 10;
+  gap: 2rem;
+}
+
+.note {
+  display: flex;
+  flex-direction: row;
+}
+
+.authbtn {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  margin: 4px;
+}
