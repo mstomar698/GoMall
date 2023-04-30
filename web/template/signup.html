@@ -5,41 +5,142 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>signup</title>
-    <link rel="stylesheet" href="/css/signup.css" />
+    <style>
+      body {
+        background-color: #000;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 16px;
+      }
+      .signup-body {
+        background-color: #333;
+        padding: 20px;
+        border-radius: 10px;
+        width: 100%;
+        max-width: 500px;
+        box-sizing: border-box;
+      }
+      .signup-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      label {
+        color: #fff;
+        margin-bottom: 10px;
+        text-align: left;
+        width: 100%;
+      }
+      input[type='text'],
+      input[type='password'],
+      input[type='email'],
+      input[type='tel'],
+      select,
+      input[type='submit'] {
+        border-radius: 8px;
+        height: 30px;
+        margin-bottom: 10px;
+        width: 100%;
+        padding: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+      }
+      input[type='submit'] {
+        height: 40px;
+        max-width: 70px;
+        font-size: 18px;
+        background-color: #fff;
+        color: #333;
+        border: none;
+        cursor: pointer;
+      }
+      .formdata {
+        font-size: 18px;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+      }
+      @media screen and (max-width: 600px) {
+        .signup-body {
+          padding: 10px;
+          border-radius: 8px;
+        }
+        label {
+          font-size: 14px;
+          margin-bottom: 5px;
+        }
+        input[type='submit'] {
+          height: 50px;
+          font-size: 20px;
+        }
+        .formdata {
+          font-size: 16px;
+          padding: 5px;
+        }
+      }
+    </style>
   </head>
-  <body class="signup">
-    <h1>Signup</h1>
-    <form id="signup-form">
-      <label for="first_name">First Name:</label>
-      <input type="text" id="first_name" name="first_name" required />
-      <br />
-      <label for="last_name">Last Name:</label>
-      <input type="text" id="last_name" name="last_name" required />
-      <br />
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required />
-      <br />
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required />
-      <br />
-      <label for="phone">Phone:</label>
-      <input type="tel" id="phone" name="phone" required />
-      <br />
-      <label for="user_type">User Type:</label>
-      <select id="user_type" name="user_type" required>
-        <option value="ADMIN">Admin</option>
-        <option value="USER">User</option>
-      </select>
-      <br />
-      <label for="location">Location:</label>
-      <input type="text" id="location" name="location" required />
-      <br />
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" required />
-      <br />
-      <input type="submit" value="Sign Up" />
-    </form>
-    <br />
+  <body>
+    <div class="signup-body">
+      <h1 class="signup-title">Signup</h1>
+      <div class="signup-form">
+        <form id="signup-form" class="formdata">
+          <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" required />
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" required />
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" required />
+          </div>
+          <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" required />
+          </div>
+          <div class="form-group">
+            <label for="user_type">User Type:</label>
+            <select id="user_type" name="user_type" required>
+              <option value="ADMIN">Admin</option>
+              <option value="USER">User</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required />
+          </div>
+          <div
+            class="form-group"
+            style="justify-items: center; text-align: center"
+          >
+            <button
+              type="submit"
+              class="signup-btn"
+              style="height: 30px; border-radius: 8px; font-size: large"
+            >
+              Sign Up
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
     <script>
       const form = document.getElementById('signup-form');
       form.addEventListener('submit', async (event) => {

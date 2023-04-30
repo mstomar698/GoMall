@@ -8,15 +8,16 @@
     <style>
       .delete {
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        top: 20%;
+        left: 30%;
+        right: 30%;
+        bottom: 20%;
         display: flex;
         justify-content: center;
         align-items: center;
         text-align: center;
-        background-color: red;
+        background-color: #000;
+        color: #fff;
         z-index: 10;
         gap: 2rem;
         flex-direction: column;
@@ -26,8 +27,8 @@
   <body>
     <div class="delete">
       <h1>Are you sure you want to delete this user?</h1>
-      <button id="delete-btn" class="btn">Yes</button>
-      <a href="/home">No</a>
+      <button id="delete-btn" class="btn" style="height: 34px; padding: 4px; border-radius: 10px; text-decoration: none; font-size: x-large;">Yes</button>
+      <a href="/home" style="height: 34px; width: 40px; padding: 2px; background: #fff; padding-top: 4px; border-radius: 10px; text-decoration: none; font-size: x-large;">No</a>
     </div>
     <script>
       const userId = '{{.user_id}}';

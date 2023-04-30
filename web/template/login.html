@@ -5,20 +5,118 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>login</title>
-    <!-- css -->
-    <link rel="stylesheet" href="/css/login.css" />
+    <style>
+      body {
+        background-color: #000;
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .login-body {
+        background-color: #333;
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .login-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      label {
+        color: #fff;
+        margin-bottom: 10px;
+      }
+      input[type='email'],
+      input[type='password'],
+      input[type='submit'] {
+        border-radius: 8px;
+        height: 24px;
+        margin-bottom: 10px;
+        width: 250px;
+        padding: 4px;
+      }
+      input[type='submit'] {
+        height: 34px;
+        width: 70px;
+      }
+      .formdata {
+        font-size: x-large;
+        padding: 10px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+      }
+      .form-btn {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+      @media only screen and (min-width: 768px) {
+        .login-body {
+          max-width: 500px;
+        }
+
+        input[type='email'],
+        input[type='password'] {
+          width: 250px;
+        }
+
+        input[type='submit'] {
+          max-width: 70px;
+        }
+      }
+      @media (max-width: 600px) {
+        .login-body {
+          padding: 10px;
+        }
+
+        .login-body h1 {
+          font-size: 1.5rem;
+        }
+
+        input[type='submit'] {
+          max-width: 60px;
+        }
+      }
+    </style>
   </head>
-  <body class="login">
-    <h1>Login</h1>
-    <form id="login-form">
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required />
+  <body>
+    <div class="login-body">
+      <div style="font-size: xx-large; margin-bottom: 20px; text-align: center">
+        Login
+      </div>
+      <div class="login-form">
+        <form id="login-form" class="formdata">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            style="border-radius: 8px; height: 24px"
+          />
 
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required />
-
-      <input type="submit" value="Sign In" />
-    </form>
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            style="border-radius: 8px; height: 24px"
+          />
+          <div class="form-btn">
+            <input
+              type="submit"
+              value="Sign In"
+              style="border-radius: 8px; height: 34px"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
     <script>
       const form = document.getElementById('login-form');
       form.addEventListener('submit', async (event) => {

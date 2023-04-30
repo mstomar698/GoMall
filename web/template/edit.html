@@ -5,47 +5,171 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>edit</title>
-    <link rel="stylesheet" href="/css/home.css" />
+    <style>
+      /* Global styles */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: #000;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      /* Edit User component styles */
+      .edit-user {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .edit-user__title {
+        font-size: 32px;
+        margin-bottom: 20px;
+      }
+
+      .edit-user__previous-details {
+        margin-bottom: 30px;
+      }
+
+      .edit-user__previous-details h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .table th,
+      .table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #333;
+      }
+
+      .table th {
+        font-weight: bold;
+      }
+
+      .edit-user__note {
+        font-size: 14px;
+        margin-top: 10px;
+      }
+
+      .edit-user__note strong {
+        font-weight: bold;
+      }
+
+      .edit-user__new-details h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      .edit-user__new-details div {
+        margin-bottom: 20px;
+      }
+
+      .edit-user__new-details label {
+        display: block;
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .edit-user__new-details input[type='text'] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 2px solid #333;
+      }
+
+      .edit-user__button {
+        padding: 10px 20px;
+        font-size: 18px;
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .edit-user__button:hover {
+        background-color: #000;
+      }
+
+      @media (max-width: 600px) {
+        .edit-user__new-details input[type='text'] {
+          font-size: 14px;
+        }
+
+        .edit-user__button {
+          font-size: 16px;
+          padding: 8px 16px;
+        }
+      }
+    </style>
   </head>
-  <body class="home">
-    <h1>Edit User</h1>
-    <h3>previous details of the user</h3>
-    <table class="table">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>User Type</th>
-        <th>Location</th>
-        <th>Title</th>
-      </tr>
-      <tr>
-        <td>{{.user_id}}</td>
-        <td>{{.user.First_name}} {{.user.Last_name}}</td>
-        <td>{{.user.Email}}</td>
-        <td>{{.user.Phone}}</td>
-        <td>{{.user.User_type}}</td>
-        <td>{{.user.Location}}</td>
-        <td>{{.user.Title}}</td>
-      </tr>
-    </table>
-    <div class="note">
-      <p>NOTE:</p>
-      <p>Due to privacy only first name and last name are editable</p>
+  <body>
+    <div class="edit-user">
+      <h1 class="edit-user__title">Edit User</h1>
+      <div class="edit-user__previous-details">
+        <h3>Previous Details</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>User Type</th>
+              <th>Location</th>
+              <th>Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{.user_id}}</td>
+              <td>{{.user.First_name}} {{.user.Last_name}}</td>
+              <td>{{.user.Email}}</td>
+              <td>{{.user.Phone}}</td>
+              <td>{{.user.User_type}}</td>
+              <td>{{.user.Location}}</td>
+              <td>{{.user.Title}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="edit-user__note">
+          <p>
+            <strong>Note:</strong> Only the first name and last name fields are
+            editable due to privacy reasons.
+          </p>
+        </div>
+      </div>
+      <div class="edit-user__new-details">
+        <h3>New Details</h3>
+        <form id="editForm">
+          <div>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="first_name" required />
+          </div>
+          <div>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="last_name" required />
+          </div>
+          <button type="button" id="editButton" class="edit-user__button">
+            Save Changes
+          </button>
+        </form>
+      </div>
     </div>
-    <h3>New User Details</h3>
-    <form id="editForm">
-      <div>
-        <label for="firstName">First Name:</label>
-        <input type="text" id="firstName" name="first_name" required />
-      </div>
-      <div>
-        <label for="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="last_name" required />
-      </div>
-      <button type="button" id="editButton">Edit User</button>
-    </form>
 
     <script>
       const userId = '{{.user_id}}';

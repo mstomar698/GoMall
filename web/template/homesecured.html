@@ -6,83 +6,317 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <title>GoMall</title>
-    <link rel="stylesheet" href="/css/home.css" />
+    <!-- <link rel="stylesheet" href="/css/home.css" /> -->
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        color: #fff;
+      }
+      body {
+        background-color: #000;
+      }
+      .dashboard-body {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      h4 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+
+      .btn {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        padding: 10px 20px;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+
+      .table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .table th,
+      .table td {
+        border: 1px solid #fff;
+        padding: 10px;
+        text-align: left;
+      }
+
+      .table th {
+        font-weight: bold;
+        background-color: #333;
+        color: #fff;
+      }
+
+      .table tr:nth-child(even) {
+        background-color: #555;
+      }
+
+      .table tr:hover {
+        background-color: #999;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .adduser,
+      .edituser {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+      }
+
+      .addbtn,
+      .editbtn {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        padding: 10px 20px;
+        cursor: pointer;
+      }
+      @media screen and (max-width: 768px) {
+        .nav {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .nav h2 {
+          font-size: 1.2rem;
+          margin-bottom: 10px;
+        }
+
+        .btn,
+        .addbtn,
+        .editbtn {
+          font-size: 0.9rem;
+          padding: 8px 16px;
+        }
+
+        th,
+        td {
+          padding: 8px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.3rem;
+        }
+
+        h3 {
+          font-size: 1.1rem;
+        }
+      }
+    </style>
   </head>
-  <body class="home">
-    <h1>Welcome to your Dashboard</h1>
-    <!-- Admin section -->
-    {{ if .admin }}
-    <div class="nav">
-      <h2>Admin {{.username}}</h2>
-      <button onclick="logOutFunction()" class="btn">LogOut</button>
+  <body>
+    <!-- <div class="dashboard-body">
+      <h1>Welcome to your Dashboard</h1>
+      {{ if .admin }}
+      <div class="nav">
+        <h2>Admin {{.username}}</h2>
+        <button onclick="logOutFunction()" class="btn">LogOut</button>
+      </div>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>User Type</th>
+          <th>Location</th>
+          <th>Title</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+        {{range .users}}
+        <tr>
+          <td>{{.First_name}} {{.Last_name}}</td>
+          <td>{{.Email}}</td>
+          <td>{{.Phone}}</td>
+          <td>{{.User_type}}</td>
+          <td>{{.Location}}</td>
+          <td>{{.Title}}</td>
+          <td><a href="/edituser/{{.ID.Hex}}">⚙️</a></td>
+          <td><a href="/deleteuser/{{.ID.Hex}}">❌</a></td>
+        </tr>
+        {{end}}
+      </table>
+      <div class="adduser">
+        <h3>Add a new user</h3>
+        <button class="addbtn" value="addbtn">
+          <a href="/createuser">Add User ➕</a>
+        </button>
+      </div>
+      {{ else }}
+      <div class="nav">
+        <h2>User {{.username}}</h2>
+        <button onclick="logOutFunction()" class="btn">LogOut</button>
+      </div>
+      <h4>Your account details:</h4>
+      <p>Name: {{ .username }}</p>
+      <p>Email: {{ .email }}</p>
+      <h2>All users in organization:</h2>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>User Type</th>
+          <th>Location</th>
+          <th>Title</th>
+        </tr>
+        {{range .users}}
+        <tr>
+          <td>{{.First_name}} {{.Last_name}}</td>
+          <td>{{.Email}}</td>
+          <td>{{.Phone}}</td>
+          <td>{{.User_type}}</td>
+          <td>{{.Location}}</td>
+          <td>{{.Title}}</td>
+        </tr>
+        {{end}}
+      </table>
+      <div class="edituser">
+        <h3>Edit your details</h3>
+        <button value="editbtn" class="editbtn">
+          <a href="/edituser/{{.user_id}}">Edit Profile</a>
+        </button>
+      </div>
+      {{ end }}
+    </div> -->
+    <div class="dashboard-body">
+      <h1>Welcome to your Dashboard</h1>
+      {{ if .admin }}
+      <div class="nav">
+        <h2>Admin {{.username}}</h2>
+        <button onclick="logOutFunction()" class="btn">Log Out</button>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>User Type</th>
+            <th>Location</th>
+            <th>Title</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range .users}}
+          <tr>
+            <td>{{.First_name}} {{.Last_name}}</td>
+            <td>{{.Email}}</td>
+            <td>{{.Phone}}</td>
+            <td>{{.User_type}}</td>
+            <td>{{.Location}}</td>
+            <td>{{.Title}}</td>
+            <td>
+              <a href="/edituser/{{.ID.Hex}}" style="text-decoration: none"
+                >⚙️</a
+              >
+            </td>
+            <td>
+              <a href="/deleteuser/{{.ID.Hex}}" style="text-decoration: none"
+                >❌</a
+              >
+            </td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+      <div class="adduser">
+        <h3>Add a new user</h3>
+        <button class="addbtn">
+          <a href="/createuser" style="text-decoration: none">Add User ➕</a>
+        </button>
+      </div>
+      {{ else }}
+      <div class="nav">
+        <h2>User {{.username}}</h2>
+        <button onclick="logOutFunction()" class="btn">Log Out</button>
+      </div>
+      <h4>Your account details:</h4>
+      <p>Name: {{ .username }}</p>
+      <p>Email: {{ .email }}</p>
+      <h2>All users in organization:</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>User Type</th>
+            <th>Location</th>
+            <th>Title</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{range .users}}
+          <tr>
+            <td>{{.First_name}} {{.Last_name}}</td>
+            <td>{{.Email}}</td>
+            <td>{{.Phone}}</td>
+            <td>{{.User_type}}</td>
+            <td>{{.Location}}</td>
+            <td>{{.Title}}</td>
+          </tr>
+          {{end}}
+        </tbody>
+      </table>
+      <div class="edituser">
+        <h3>Edit your details</h3>
+        <button class="editbtn">
+          <a href="/edituser/{{.user_id}}">Edit Profile</a>
+        </button>
+      </div>
+      {{ end }}
     </div>
-    <table class="table">
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>User Type</th>
-        <th>Location</th>
-        <th>Title</th>
-        <th>Edit</th>
-        <th>Delete</th>
-      </tr>
-      {{range .users}}
-      <tr>
-        <td>{{.First_name}} {{.Last_name}}</td>
-        <td>{{.Email}}</td>
-        <td>{{.Phone}}</td>
-        <td>{{.User_type}}</td>
-        <td>{{.Location}}</td>
-        <td>{{.Title}}</td>
-        <td><a href="/edituser/{{.ID.Hex}}">⚙️</a></td>
-        <td><a href="/deleteuser/{{.ID.Hex}}">❌</a></td>
-      </tr>
-      {{end}}
-    </table>
-    <div class="adduser">
-      <h3>Add a new user</h3>
-      <button class="addbtn" value="addbtn">
-        <a href="/createuser">Add User ➕</a>
-      </button>
-    </div>
-    <!-- non-admin section -->
-    {{ else }}
-    <div class="nav">
-      <h2>User {{.username}}</h2>
-      <button onclick="logOutFunction()" class="btn">LogOut</button>
-    </div>
-    <h4>Your account details:</h4>
-    <p>Name: {{ .username }}</p>
-    <p>Email: {{ .email }}</p>
-    <h2>All users in organization:</h2>
-    <table class="table">
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>User Type</th>
-        <th>Location</th>
-        <th>Title</th>
-      </tr>
-      {{range .users}}
-      <tr>
-        <td>{{.First_name}} {{.Last_name}}</td>
-        <td>{{.Email}}</td>
-        <td>{{.Phone}}</td>
-        <td>{{.User_type}}</td>
-        <td>{{.Location}}</td>
-        <td>{{.Title}}</td>
-      </tr>
-      {{end}}
-    </table>
-    <div class="edituser">
-      <h3>Edit your details</h3>
-      <button value="editbtn" class="editbtn">
-        <a href="/edituser/{{.user_id}}">Edit Profile</a>
-      </button>
-    </div>
-    {{ end }}
     <script>
       function logOutFunction() {
         const confirmationButton = document.createElement('button');
