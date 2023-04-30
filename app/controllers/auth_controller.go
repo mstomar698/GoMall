@@ -136,7 +136,8 @@ func Login() gin.HandlerFunc {
 		c.SetCookie("token", token, 3600, "/", "", false, true)
 		c.SetCookie("refresh_token", refreshToken, 3600, "/", "", false, true)
 		c.Set("user", foundUser)
-		c.Redirect(http.StatusFound, `/home/?={token}`)
+		// c.Redirect(http.StatusFound, `/home/?={token}`)
+		c.Redirect(http.StatusFound, `/product/?={token}`)
 		// c.JSON(http.StatusOK, foundUser)
 	}
 }

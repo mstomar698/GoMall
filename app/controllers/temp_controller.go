@@ -17,7 +17,7 @@ func Home() gin.HandlerFunc {
 	}
 }
 
-func HomeSecured() gin.HandlerFunc {
+func DashBoardScreen() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		users, err := userCollection.Find(context.Background(), bson.D{})
 		if err != nil {
@@ -41,7 +41,7 @@ func HomeSecured() gin.HandlerFunc {
 		userTitle := c.GetString("last_name")
 		userId := c.GetString("uid")
 		admin := c.GetBool("admin")
-		c.HTML(http.StatusOK, "homesecured", gin.H{
+		c.HTML(http.StatusOK, "dashboard", gin.H{
 			"username":  userName,
 			"user_type": userType,
 			"admin":     admin,
@@ -91,6 +91,51 @@ func CreateUserScreen() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.HTML(200, "createuser", gin.H{
 			"title": "",
+		})
+	}
+}
+func ProductScreen() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		users, err := userCollection.Find(context.Background(), bson.D{})
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+			return
+		}
+		var userList []models.User
+		for users.Next(context.Background()) {
+			var user models.User
+			if err := users.Decode(&user); err != nil {
+				c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+				return
+			}
+			userList = append(userList, user)
+		}
+		userName := c.GetString("first_name")
+		userType := c.GetString("user_type")
+		userEmail := c.GetString("email")
+		userLocation := c.GetString("first_name")
+		userPhone := c.GetString("first_name")
+		userTitle := c.GetString("last_name")
+		userId := c.GetString("uid")
+		admin := c.GetBool("admin")
+		c.HTML(http.StatusOK, "product", gin.H{
+			"username":  userName,
+			"user_type": userType,
+			"admin":     admin,
+			"email":     userEmail,
+			"phone":     userPhone,
+			"location":  userLocation,
+			"title":     userTitle,
+			"user_id":   userId,
+			"users":     userList,
+		})
+	}
+}
+
+func CreateProductScreen() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		c.HTML(200, "createproduct", gin.H{
+			"title": "create-product-page",
 		})
 	}
 }

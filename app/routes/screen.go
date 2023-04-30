@@ -11,4 +11,5 @@ func ScreenRoute(router *gin.Engine) {
 	router.GET("/createuser", controllers.CreateUserScreen())
 	router.GET("/edituser/:userId", controllers.EditUserScreen())
 	router.GET("/deleteuser/:userId", controllers.DeleteUserScreen())
+	router.GET("/createproduct", controllers.CreateProductScreen())
 }

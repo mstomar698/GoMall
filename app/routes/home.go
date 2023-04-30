@@ -9,5 +9,5 @@ import (
 func HomeRoute(router *gin.Engine) {
 	router.GET("/", controllers.Home())
 	router.Use(utils.Authenticate())
-	router.GET("/home", controllers.HomeSecured())
+	// router.GET("/home", controllers.HomeSecured())
 }

@@ -133,7 +133,7 @@
         const result = await response.text();
         if (!result.includes('error')) {
           setTimeout(() => {
-            window.location.href = '/home';
+            window.location.href = '/product';
           }, 1000);
         } else {
           console.error('Failed to login');

@@ -24,7 +24,8 @@ func InitializeDB() error {
 func createMyRender() multitemplate.Renderer {
 	r := multitemplate.NewRenderer()
 	r.AddFromFiles("home", "./web/template/home.html")
-	r.AddFromFiles("homesecured", "./web/template/homesecured.html")
+	// TODO: homesceured is moved to dashboard.html
+	// r.AddFromFiles("homesecured", "./web/template/homesecured.html")
 	r.AddFromFiles("login", "./web/template/login.html")
 	r.AddFromFiles("signup", "./web/template/signup.html")
 	r.AddFromFiles("allusers", "./web/template/allusers.html")
@@ -32,6 +33,9 @@ func createMyRender() multitemplate.Renderer {
 	r.AddFromFiles("edit", "./web/template/edit.html")
 	r.AddFromFiles("deleteuser", "./web/template/deleteuser.html")
 	r.AddFromFiles("createuser", "./web/template/createuser.html")
+	r.AddFromFiles("product", "./web/template/product.html")
+	r.AddFromFiles("dashboard", "./web/template/dashboard.html")
+	r.AddFromFiles("createproduct", "./web/template/createproduct.html")
 	return r
 }
 
@@ -49,6 +53,7 @@ func InitializeRouter() {
 	routes.AuthRoutes(router)
 	routes.HomeRoute(router)
 	routes.UserRoutes(router)
+	routes.ProductRoutes(router)
 
 	fmt.Println("Server running line at http://localhost:8000 ENJOY!!😁")
 	router.Run(":8000")
